@@ -1,16 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleTestBed
 {
+
     class Program
     {
+        
         static void Main(string[] args)
         {
-            Console.WriteLine("hello");
+            
+            try
+            {
+                
+                Console.WriteLine("hello");
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }
