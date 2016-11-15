@@ -10,6 +10,7 @@ namespace ConsoleTestBed
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("hello");
         }
     }
 }
