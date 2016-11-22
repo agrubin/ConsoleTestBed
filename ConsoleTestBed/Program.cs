@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Linq;
 
 namespace ConsoleTestBed
@@ -9,7 +11,7 @@ namespace ConsoleTestBed
    
         static void Main(string[] args)
         {
-            MatrixDiagonals();
+            CutSticks();
         }
 
         delegate int shit (int x);
@@ -86,5 +88,154 @@ namespace ConsoleTestBed
 
             Console.WriteLine(absDiff);
         }
+
+        static void PlusMinus()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] arr_temp = Console.ReadLine().Split(' ');
+            int[] arr = Array.ConvertAll(arr_temp, Int32.Parse);
+
+            decimal size = n;
+
+            var negs = from ng in arr where ng < 0 select ng;
+            var pos = from ps in arr where ps > 0 select ps;
+            decimal zeros = size - negs.Count() - pos.Count();
+
+            decimal dnegs = (decimal)negs.Count() / size;
+            decimal dpos = (decimal)pos.Count() / size;
+            decimal dzeros = zeros / size;
+
+            Console.WriteLine(dpos);
+            Console.WriteLine(dnegs);
+            Console.WriteLine(dzeros);
+        }
+
+        static void PrintStaircase()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            
+            for (int i = n - 1; i >= 0 ; i--)
+            {
+                string step = "".PadLeft(i, ' ').PadRight(n, '#');
+                Console.WriteLine(step);
+            }
+        }
+
+        static void ChangeTimeFormat()
+        {
+            string time = Console.ReadLine();
+            DateTime dt = DateTime.Parse(time);
+            Console.WriteLine(dt.ToString("HH:mm:ss"));
+        }
+
+        static void CircularArray()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+            int q = Convert.ToInt32(tokens_n[2]);
+            string[] a_temp = Console.ReadLine().Split(' ');
+            int[] arr = Array.ConvertAll(a_temp, Int32.Parse);
+
+            Queue<int> qur = new Queue<int>(arr.Reverse());
+            for (int i = 0; i < k; i++)
+            {
+                qur.Enqueue(qur.Dequeue());
+            }
+
+            arr = qur.ToArray().Reverse().ToArray();
+
+            for (int i = 0; i < q; i++)
+            {
+                int m =Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(arr[m]);
+            }
+        }
+
+        static void Viral()
+        {
+            const int peopleStart = 5;
+            const int peopleShared = 3;
+
+            long numPeopleTargets = peopleStart;
+            long likedCount = 0;
+            long floor;
+            int numDays;
+
+            numDays = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numDays; i++)
+            {
+                floor = numPeopleTargets / 2;
+                likedCount += floor;
+                numPeopleTargets = floor * peopleShared;
+            }
+
+            Console.WriteLine(likedCount);
+        }
+
+        static void DivisibleSumPairs()
+        {
+            string[] tokens_n = Console.ReadLine().Split(' ');
+            int n = Convert.ToInt32(tokens_n[0]);
+            int k = Convert.ToInt32(tokens_n[1]);
+            string[] a_temp = Console.ReadLine().Split(' ');
+            int[] ordArr = Array.ConvertAll(a_temp, Int32.Parse);
+
+            int count = 0;
+
+ 
+            for (int i = 0; i < n-1; i++)
+            {
+                for (int ji = i + 1; ji < n; ji++)
+                {
+                    if (i < ji && (ordArr[ji] + ordArr[i]) % k == 0) count++;
+                }
+            }
+
+            Console.WriteLine(count);
+        }
+
+        static void Angry()
+        {
+            int t = Convert.ToInt32(Console.ReadLine());
+            for (int a0 = 0; a0 < t; a0++)
+            {
+                string[] tokens_n = Console.ReadLine().Split(' ');
+                int n = Convert.ToInt32(tokens_n[0]);
+                int k = Convert.ToInt32(tokens_n[1]);
+                string[] a_temp = Console.ReadLine().Split(' ');
+                int[] a = Array.ConvertAll(a_temp, Int32.Parse);
+
+                var lates = from lt in a where lt > 0 select lt;
+
+                Console.WriteLine(n - lates.Count() >= k ? "NO" : "YES");
+            }
+        }
+
+        static void CutSticks()
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] arr_temp = Console.ReadLine().Split(' ');
+            int[] arr = Array.ConvertAll(arr_temp, Int32.Parse);
+
+
+
+            while(arr.Length > 0)
+            {
+                int min = arr.Min();
+                int index = 0;
+
+                foreach (int element in arr)
+                {
+                    arr[index++] -= min;
+                }
+                arr = Array.FindAll(arr, i => i != 0);
+                Console.WriteLine(index); 
+            }
+        }
+
+       
     }
 }
