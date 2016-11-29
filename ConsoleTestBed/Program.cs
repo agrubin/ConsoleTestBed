@@ -8,10 +8,99 @@ namespace ConsoleTestBed
 
     class Program
     {
-   
+
+        static void AlmostSorted()
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] sArray = Console.ReadLine().Split(' ');
+
+            int[] arr = Array.ConvertAll(sArray, s => Convert.ToInt32(s));
+
+
+            int swapr = Bubble(arr, n, true);
+
+            if (swapr == -1)
+            {
+                Console.WriteLine("yes");
+                return;
+            }
+
+            int swapl = Bubble(arr, n, false);
+
+            int temp = arr[swapr];
+            arr[swapr] = arr[swapl];
+            arr[swapl] = temp;
+
+            int checkit = Bubble(arr, n, true);
+
+            if (checkit == -1)
+            { 
+                Console.WriteLine("yes\n" + $"swap {swapr + 1} {swapl + 1}");
+                return;
+            }
+
+            int swaplSave = swapl;
+            int swaprSave = swapr;
+
+            do
+            {
+                if (swapl - swapr <= 1)
+                {
+                    Console.WriteLine("no\n");
+                    return;
+                }
+
+                swapr++;
+                swapl--;
+
+                temp = arr[swapr];
+                arr[swapr] = arr[swapl];
+                arr[swapl] = temp;
+
+                checkit = Bubble(arr, n, true);
+
+                if (checkit == -1)
+                {
+                    Console.WriteLine("yes\n" + $"reverse {swaprSave + 1} {swaplSave + 1}");
+                    return;
+                }
+            }
+            while (true);
+
+
+        }
+
+        static int Bubble(int[] arr, int n, bool direction)
+        {
+            if (direction) // right
+            {
+                for (int i = 0; i < n - 1; i++)
+                {
+                    if (arr[i] < arr[i + 1]) continue;
+                    return i;
+                }
+
+                return -1;
+            }
+            else // left
+            {
+                for (int i = n - 1; i > 0; i--)
+                {
+                    if (arr[i] > arr[i - 1]) continue;
+                    return i;
+                }
+
+                return -1;
+            }
+
+        }
+
         static void Main(string[] args)
         {
-            CutSticks();
+                while (true)
+                {
+                    AlmostSorted(); 
+                }
         }
 
         delegate int shit (int x);
